@@ -66,9 +66,9 @@ def get_movie(id: int = Path(gt=0))-> Movie | dict:
 
 # http://localhost:5000/movies/?category=a
 @app.get("/movies/", tags=["Movies"])
-def get_movie_by_category(category: str)-> Movie | dict:
+def get_movie_by_category(category: str = Query(min_length=5, max_length=20))-> Movie | dict:
     for movie in lista_movies:
-        if movie.category == category:
+        if movie.category == category :
             return movie.model_dump()
     return {}
 
