@@ -1,11 +1,12 @@
 from fastapi import FastAPI, Body
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
+from typing import Optional
 
 app = FastAPI()
 
 class Movie(BaseModel):
-    id: int
+    id: Optional[int] = None
     title: str
     overview: str
     year: int
@@ -64,21 +65,14 @@ def create_movie(movie: Movie):
     return lista_movies
 
 @app.put('/movies/{id}', tags=["Movies"])
-def update_movie(
-    id: int,
-    title: str = Body(),
-    overview: str = Body(),
-    year: int = Body(),
-    rating: float = Body(),
-    category: str = Body()
-):
-    for movie in lista_movies:
-        if movie['id'] == id:
-            movie['title'] = title
-            movie['overview'] = overview
-            movie['year'] = year
-            movie['rating'] = rating
-            movie['category'] = category
+def update_movie(id: int, movie: Movie):
+    for item in lista_movies:
+        if item['id'] == id:
+            item['title'] = movie.title
+            item['overview'] = movie.overview
+            item['year'] = movie.year
+            item['rating'] = movie.rating
+            item['category'] = movie.category
     return lista_movies
 
 @app.delete('/movies/{id}', tags=["Movies"])
