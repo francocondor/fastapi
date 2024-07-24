@@ -24,6 +24,10 @@ lista_movies = [
     }
 ]
 
+@app.get("/html", tags=["Home"])
+def html():
+    return HTMLResponse('<h1>Hello World</h1>')
+
 @app.get("/", tags=["Home"])
 def home():
     return "Hello World"
@@ -38,8 +42,3 @@ def get_movie(id: int):
         if movie['id'] == id:
             return movie
     return []
-
-
-@app.get("/html", tags=["Home"])
-def html():
-    return HTMLResponse('<h1>Hello World</h1>')
