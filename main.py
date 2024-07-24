@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 from typing import Optional, List
@@ -58,19 +58,19 @@ def get_movies()-> List[Movie]:
     return [item.model_dump() for item in lista_movies]
 
 @app.get("/movies/{id}", tags=["Movies"])
-def get_movie(id: int)-> Movie:
+def get_movie(id: int = Path(gt=0))-> Movie | dict:
     for movie in lista_movies:
-        if movie['id'] == id:
+        if movie.id == id:
             return movie.model_dump()
-    return []
+    return {}
 
 # http://localhost:5000/movies/?category=a&year=1
 @app.get("/movies/", tags=["Movies"])
-def get_movie_by_category(category: str, year: int)-> Movie:
+def get_movie_by_category(category: str, year: int)-> Movie | dict:
     for movie in lista_movies:
         if movie['category'] == category and movie['year'] == year:
             return movie.model_dump()
-    return []
+    return {}
 
 @app.post('/movies', tags=["Movies"])
 def create_movie(movie: MovieCreate)-> List[Movie]:
