@@ -6,12 +6,19 @@ from typing import Optional
 app = FastAPI()
 
 class Movie(BaseModel):
-    id: Optional[int] = None
+    id: int
     title: str
     overview: str
     year: int
     rating: float
     category: str
+
+class MovieUpdate(BaseModel):
+    title: Optional[str]
+    overview: Optional[str]
+    year: Optional[int]
+    rating: Optional[float]
+    category: Optional[str]
 
 lista_movies = [
     {
@@ -65,7 +72,7 @@ def create_movie(movie: Movie):
     return lista_movies
 
 @app.put('/movies/{id}', tags=["Movies"])
-def update_movie(id: int, movie: Movie):
+def update_movie(id: int, movie: MovieUpdate):
     for item in lista_movies:
         if item['id'] == id:
             item['title'] = movie.title
