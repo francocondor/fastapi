@@ -85,3 +85,10 @@ def update_movie(
             movie['rating'] = rating
             movie['category'] = category
     return lista_movies
+
+@app.delete('/movies/{id}', tags=["Movies"])
+def delete_movie(id: int):
+    for movie in lista_movies:
+        if movie['id'] == id:
+            lista_movies.remove(movie)
+    return lista_movies
