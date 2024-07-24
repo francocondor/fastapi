@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Path
+from fastapi import FastAPI, Path, Query
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 from typing import Optional, List
@@ -64,11 +64,11 @@ def get_movie(id: int = Path(gt=0))-> Movie | dict:
             return movie.model_dump()
     return {}
 
-# http://localhost:5000/movies/?category=a&year=1
+# http://localhost:5000/movies/?category=a
 @app.get("/movies/", tags=["Movies"])
-def get_movie_by_category(category: str, year: int)-> Movie | dict:
+def get_movie_by_category(category: str)-> Movie | dict:
     for movie in lista_movies:
-        if movie['category'] == category and movie['year'] == year:
+        if movie.category == category:
             return movie.model_dump()
     return {}
 
