@@ -22,7 +22,7 @@ lista_movies = [
     }
 ]
 
-@app.get("/html", tags=["Home"])
+@app.get("/html", tags=["HTML"])
 def html():
     return HTMLResponse('<h1>Hello World</h1>')
 
