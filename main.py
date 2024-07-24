@@ -23,6 +23,10 @@ def home():
 def get_movies():
     return lista_movies
 
+@app.get("/movies/{id}", tags=["Home"])
+def get_movie(id: int):
+    return lista_movies[id]
+
 @app.get("/html", tags=["Home"])
 def html():
     return HTMLResponse('<h1>Hello World</h1>')
