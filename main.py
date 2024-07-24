@@ -37,7 +37,7 @@ def get_movie(id: int):
     for movie in lista_movies:
         if movie['id'] == id:
             return movie
-    return "Movie not found"
+    return []
 
 
 @app.get("/html", tags=["Home"])
