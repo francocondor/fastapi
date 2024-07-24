@@ -32,11 +32,11 @@ def html():
 def home():
     return "Hello World"
 
-@app.get("/movies", tags=["Home"])
+@app.get("/movies", tags=["Movies"])
 def get_movies():
     return lista_movies
 
-@app.get("/movies/{id}", tags=["Home"])
+@app.get("/movies/{id}", tags=["Movies"])
 def get_movie(id: int):
     for movie in lista_movies:
         if movie['id'] == id:
@@ -44,7 +44,7 @@ def get_movie(id: int):
     return []
 
 # http://localhost:5000/movies/?category=a&year=1
-@app.get("/movies/", tags=["Home"])
+@app.get("/movies/", tags=["Movies"])
 def get_movie_by_category(category: str, year: int):
     for movie in lista_movies:
         if movie['category'] == category and movie['year'] == year:
