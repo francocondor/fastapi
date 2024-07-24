@@ -82,12 +82,12 @@ def create_movie(movie: MovieCreate)-> List[Movie]:
 @app.put('/movies/{id}', tags=["Movies"])
 def update_movie(id: int, movie: MovieUpdate)-> List[Movie]:
     for item in lista_movies:
-        if item['id'] == id:
-            item['title'] = movie.title
-            item['overview'] = movie.overview
-            item['year'] = movie.year
-            item['rating'] = movie.rating
-            item['category'] = movie.category
+        if item.id == id:
+            item.title    = movie.title
+            item.overview = movie.overview
+            item.year     = movie.year
+            item.rating   = movie.rating
+            item.category = movie.category
     content = [item.model_dump() for item in lista_movies]
     return JSONResponse(content=content)
 
