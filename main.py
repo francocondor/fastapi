@@ -7,7 +7,6 @@ lista_movies = [
     {
         "id": 1,
         "title": "Avatar",
-        "director": "James Cameron",
         "overview": "A paraplegic marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
         "year": 2009,
         "rating": 7.8,
@@ -16,7 +15,6 @@ lista_movies = [
     {
         "id": 2,
         "title": "The Shawshank Redemption",
-        "director": "Frank Darabont",
         "overview": "Two imprisoned",
         "year": 1994,
         "rating": 9.3,
@@ -55,7 +53,6 @@ def get_movie_by_category(category: str, year: int):
 def create_movie(
     id: int = Body(),
     title: str = Body(),
-    director: str = Body(),
     overview: str = Body(),
     year: int = Body(),
     rating: float = Body(),
@@ -64,7 +61,6 @@ def create_movie(
     lista_movies.append({
         "id": id,
         "title": title,
-        "director": director,
         "overview": overview,
         "year": year,
         "rating": rating,
