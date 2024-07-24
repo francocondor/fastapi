@@ -12,6 +12,15 @@ lista_movies = [
         "year": 2009,
         "rating": 7.8,
         "category": "Action"
+    },
+    {
+        "id": 2,
+        "title": "The Shawshank Redemption",
+        "director": "Frank Darabont",
+        "overview": "Two imprisoned",
+        "year": 1994,
+        "rating": 9.3,
+        "category": "Drama"
     }
 ]
 
@@ -25,7 +34,11 @@ def get_movies():
 
 @app.get("/movies/{id}", tags=["Home"])
 def get_movie(id: int):
-    return lista_movies[id]
+    for movie in lista_movies:
+        if movie['id'] == id:
+            return movie
+    return "Movie not found"
+
 
 @app.get("/html", tags=["Home"])
 def html():
