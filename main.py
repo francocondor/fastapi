@@ -16,11 +16,25 @@ class Movie(BaseModel):
 
 class MovieCreate(BaseModel):
     id: int
-    title: str = Field(min_length=5, max_length=15, default='My Movie')
-    overview: str = Field(min_length=15, max_length=50, default='My Overview Movie')
-    year: int = Field(le=datetime.datetime.now().year, ge=1900, default=datetime.datetime.now().year)
-    rating: float = Field(ge=0, le=10, default=10)
-    category: str = Field(min_length=5, max_length=20, default='My Category')
+    title: str = Field(min_length=5, max_length=15)
+    overview: str = Field(min_length=15, max_length=80)
+    year: int = Field(le=datetime.datetime.now().year, ge=1900)
+    rating: float = Field(ge=0, le=10)
+    category: str = Field(min_length=5, max_length=20)
+
+    model_config = {
+        'json_schema_extra': {
+            'example': {
+                'id': 0,
+                'title': 'Predestination',
+                'overview': 'A temporal agent embarks on a final time-traveling assignment.',
+                'year': 2014,
+                'rating': 7.5,
+                'category': 'Action'
+            }
+        }
+
+    }
 
 class MovieUpdate(BaseModel):
     title: Optional[str]
