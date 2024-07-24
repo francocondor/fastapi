@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Path, Query
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel, Field
 from typing import Optional, List
 import datetime
@@ -55,7 +55,8 @@ def home():
 
 @app.get("/movies", tags=["Movies"])
 def get_movies()-> List[Movie]:
-    return [item.model_dump() for item in lista_movies]
+    content = [item.model_dump() for item in lista_movies]
+    return JSONResponse(content=content)
 
 @app.get("/movies/{id}", tags=["Movies"])
 def get_movie(id: int = Path(gt=0))-> Movie | dict:
