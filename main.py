@@ -25,7 +25,7 @@ class MovieCreate(BaseModel):
     model_config = {
         'json_schema_extra': {
             'example': {
-                'id': 0,
+                'id': 1,
                 'title': 'Predestination',
                 'overview': 'A temporal agent embarks on a final time-traveling assignment.',
                 'year': 2014,
@@ -94,7 +94,7 @@ def update_movie(id: int, movie: MovieUpdate)-> List[Movie]:
 @app.delete('/movies/{id}', tags=["Movies"])
 def delete_movie(id: int)-> List[Movie]:
     for movie in lista_movies:
-        if movie['id'] == id:
+        if movie.id == id:
             lista_movies.remove(movie)
     content = [item.model_dump() for item in lista_movies]
     return JSONResponse(content=content)
