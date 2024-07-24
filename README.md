@@ -31,9 +31,14 @@ Luego, activamos el entorno virutal:
 .\venv\Scripts\Activate.ps1
 ```
 
-
 Una vez activado el entorno, instalamos fastapi y uvicorn:
 
 ```powershell
 pip install fastapi uvicorn
+```
+
+Para levantar el proyecto, ejecuta el siguiente comando:
+
+```powershell
+uvicorn main:app --host 0.0.0.0 --port 5000 --reload
 ```
