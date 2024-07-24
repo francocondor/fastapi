@@ -1,7 +1,16 @@
 from fastapi import FastAPI, Body
 from fastapi.responses import HTMLResponse
+from pydantic import BaseModel
 
 app = FastAPI()
+
+class Movie(BaseModel):
+    id: int
+    title: str
+    overview: str
+    year: int
+    rating: float
+    category: str
 
 lista_movies = [
     {
@@ -50,22 +59,8 @@ def get_movie_by_category(category: str, year: int):
     return []
 
 @app.post('/movies', tags=["Movies"])
-def create_movie(
-    id: int = Body(),
-    title: str = Body(),
-    overview: str = Body(),
-    year: int = Body(),
-    rating: float = Body(),
-    category: str = Body()
-):
-    lista_movies.append({
-        "id": id,
-        "title": title,
-        "overview": overview,
-        "year": year,
-        "rating": rating,
-        "category": category
-    })
+def create_movie(movie: Movie):
+    lista_movies.append(movie.model_dump())
     return lista_movies
 
 @app.put('/movies/{id}', tags=["Movies"])
