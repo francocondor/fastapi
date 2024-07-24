@@ -43,24 +43,7 @@ class MovieUpdate(BaseModel):
     rating: Optional[float]
     category: Optional[str]
 
-lista_movies = [
-    {
-        "id": 1,
-        "title": "Avatar",
-        "overview": "A paraplegic marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
-        "year": 2009,
-        "rating": 7.8,
-        "category": "Action"
-    },
-    {
-        "id": 2,
-        "title": "The Shawshank Redemption",
-        "overview": "Two imprisoned",
-        "year": 1994,
-        "rating": 9.3,
-        "category": "Drama"
-    }
-]
+lista_movies: List[Movie] = []
 
 @app.get("/html", tags=["HTML"])
 def html():
@@ -72,13 +55,13 @@ def home():
 
 @app.get("/movies", tags=["Movies"])
 def get_movies()-> List[Movie]:
-    return lista_movies
+    return [item.model_dump() for item in lista_movies]
 
 @app.get("/movies/{id}", tags=["Movies"])
 def get_movie(id: int)-> Movie:
     for movie in lista_movies:
         if movie['id'] == id:
-            return movie
+            return movie.model_dump()
     return []
 
 # http://localhost:5000/movies/?category=a&year=1
@@ -86,13 +69,13 @@ def get_movie(id: int)-> Movie:
 def get_movie_by_category(category: str, year: int)-> Movie:
     for movie in lista_movies:
         if movie['category'] == category and movie['year'] == year:
-            return movie
+            return movie.model_dump()
     return []
 
 @app.post('/movies', tags=["Movies"])
 def create_movie(movie: MovieCreate)-> List[Movie]:
-    lista_movies.append(movie.model_dump())
-    return lista_movies
+    lista_movies.append(movie)
+    return [item.model_dump() for item in lista_movies]
 
 @app.put('/movies/{id}', tags=["Movies"])
 def update_movie(id: int, movie: MovieUpdate)-> List[Movie]:
@@ -103,11 +86,11 @@ def update_movie(id: int, movie: MovieUpdate)-> List[Movie]:
             item['year'] = movie.year
             item['rating'] = movie.rating
             item['category'] = movie.category
-    return lista_movies
+    return [item.model_dump() for item in lista_movies]
 
 @app.delete('/movies/{id}', tags=["Movies"])
 def delete_movie(id: int)-> List[Movie]:
     for movie in lista_movies:
         if movie['id'] == id:
             lista_movies.remove(movie)
-    return lista_movies
+    return [item.model_dump() for item in lista_movies]
