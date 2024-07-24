@@ -20,7 +20,7 @@ def home():
     return "Hello World"
 
 @app.get("/movies", tags=["Home"])
-def movies():
+def get_movies():
     return lista_movies
 
 @app.get("/html", tags=["Home"])
