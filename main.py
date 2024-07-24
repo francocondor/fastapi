@@ -42,3 +42,11 @@ def get_movie(id: int):
         if movie['id'] == id:
             return movie
     return []
+
+# http://localhost:5000/movies/?category=a&year=1
+@app.get("/movies/", tags=["Home"])
+def get_movie_by_category(category: str, year: int):
+    for movie in lista_movies:
+        if movie['category'] == category and movie['year'] == year:
+            return movie
+    return []
