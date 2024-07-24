@@ -77,9 +77,8 @@ def get_movie_by_category(category: str = Query(min_length=5, max_length=20))-> 
 def create_movie(movie: MovieCreate)-> List[Movie]:
     lista_movies.append(movie)
     content = [item.model_dump() for item in lista_movies]
-    
-    # return JSONResponse(content=content)
-    return RedirectResponse(url='/movies', status_code=303)
+    return JSONResponse(content=content)
+    # return RedirectResponse(url='/movies', status_code=303)
 
 @app.put('/movies/{id}', tags=["Movies"])
 def update_movie(id: int, movie: MovieUpdate)-> List[Movie]:
