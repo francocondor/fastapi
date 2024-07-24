@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Path, Query
-from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse, FileResponse
 from pydantic import BaseModel, Field
 from typing import Optional, List
 import datetime
@@ -99,3 +99,7 @@ def delete_movie(id: int)-> List[Movie]:
             lista_movies.remove(movie)
     content = [item.model_dump() for item in lista_movies]
     return JSONResponse(content=content)
+
+@app.get('/get_file', tags=["Files"])
+def get_file():
+    return FileResponse('README.md')
