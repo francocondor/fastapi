@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Body
 from fastapi.responses import HTMLResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional, List
+import datetime
 
 app = FastAPI()
 
@@ -12,6 +13,14 @@ class Movie(BaseModel):
     year: int
     rating: float
     category: str
+
+class MovieCreate(BaseModel):
+    id: int
+    title: str = Field(min_length=5, max_length=15, default='My Movie')
+    overview: str = Field(min_length=15, max_length=50, default='My Overview Movie')
+    year: int = Field(le=datetime.datetime.now().year, ge=1900, default=datetime.datetime.now().year)
+    rating: float = Field(ge=0, le=10, default=10)
+    category: str = Field(min_length=5, max_length=20, default='My Category')
 
 class MovieUpdate(BaseModel):
     title: Optional[str]
@@ -67,7 +76,7 @@ def get_movie_by_category(category: str, year: int)-> Movie:
     return []
 
 @app.post('/movies', tags=["Movies"])
-def create_movie(movie: Movie)-> List[Movie]:
+def create_movie(movie: MovieCreate)-> List[Movie]:
     lista_movies.append(movie.model_dump())
     return lista_movies
 
