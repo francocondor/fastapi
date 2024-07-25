@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Path, Query
 from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse, FileResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 from typing import Optional, List
 import datetime
 
@@ -16,7 +16,7 @@ class Movie(BaseModel):
 
 class MovieCreate(BaseModel):
     id: int
-    title: str = Field(min_length=5, max_length=15)
+    title: str
     overview: str = Field(min_length=15, max_length=80)
     year: int = Field(le=datetime.datetime.now().year, ge=1900)
     rating: float = Field(ge=0, le=10)
@@ -34,6 +34,14 @@ class MovieCreate(BaseModel):
             }
         }
     }
+
+    @validator('title')
+    def vlidate_title(cls, value):
+        if len(value) < 5:
+            raise ValueError('Title filed must be at least 5 characters')
+        if len(value) > 15:
+            raise ValueError('Title filed must be at most 15 characters')
+        return value
 
 class MovieUpdate(BaseModel):
     title: Optional[str]
