@@ -33,7 +33,6 @@ class MovieCreate(BaseModel):
                 'category': 'Action'
             }
         }
-
     }
 
 class MovieUpdate(BaseModel):
