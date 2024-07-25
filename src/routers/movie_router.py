@@ -22,7 +22,7 @@ def get_movie(id: int = Path(gt=0))-> Movie | dict:
     return JSONResponse(content={}, status_code=404)
 
 # http://localhost:5000/movies/?category=a
-@movie_router.get("/", tags=["Movies"])
+@movie_router.get("/ny_category", tags=["Movies"])
 def get_movie_by_category(category: str = Query(min_length=5, max_length=20))-> Movie | dict:
     for movie in lista_movies:
         if movie.category == category :
