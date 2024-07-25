@@ -53,7 +53,7 @@ def html():
 def home():
     return PlainTextResponse(content='Home', status_code=200)
 
-@app.get("/movies", tags=["Movies"])
+@app.get("/movies", tags=["Movies"], status_code=200, response_description='Nos debe devolver una respuesta exitosa')
 def get_movies()-> List[Movie]:
     content = [item.model_dump() for item in lista_movies]
     return JSONResponse(content=content, status_code=200)
