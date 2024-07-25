@@ -1,11 +1,16 @@
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse, PlainTextResponse, FileResponse
+from fastapi.requests import Request
+from fastapi.responses import HTMLResponse, PlainTextResponse, FileResponse, Response, JSONResponse
 from src.routers.movie_router import movie_router
 from src.utils.http_error_handle import HTTPErrorHandler
 
 app = FastAPI()
 
-app.add_middleware(HTTPErrorHandler)
+# app.add_middleware(HTTPErrorHandler)
+@app.middleware('http')
+async def http_error_handler(request: Request, call_next)-> Response | JSONResponse:
+    print('Middleware is running!')
+    return await call_next(request)
 
 @app.get("/html", tags=["HTML"])
 def html():
