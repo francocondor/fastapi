@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
 
-def dependency1():
+def dependency1(param: int):
     print('Global dependency 1')
 
 def dependency2():
