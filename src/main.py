@@ -35,7 +35,7 @@ def common_params(start_date: str, end_date: str):
     return {"start_date": start_date, "end_date": end_date}
 
 @app.get('/users', tags=["Users"])
-def get_users(country: Annotated[str, Query(max_length=10)], commons: dict = Depends(common_params)):
+def get_users(country: Annotated[str, Query(max_length=10)], commons: Annotated[dict, Depends(common_params)]):
     return f"Users created between {commons['start_date']} and {commons['end_date']}"
 
 @app.get('/customers', tags=["Customers"])
