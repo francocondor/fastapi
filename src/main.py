@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Query
 from fastapi.requests import Request
 from fastapi.responses import HTMLResponse, PlainTextResponse, FileResponse, Response, JSONResponse
 from src.routers.movie_router import movie_router
@@ -34,7 +34,7 @@ def common_params(start_date: str, end_date: str):
     return {"start_date": start_date, "end_date": end_date}
 
 @app.get('/users', tags=["Users"])
-def get_users(commons: dict = Depends(common_params)):
+def get_users(commons: dict = Depends(common_params), country: str = Query(max_length=10)):
     return f"Users created between {commons['start_date']} and {commons['end_date']}"
 
 @app.get('/customers', tags=["Customers"])
