@@ -9,7 +9,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
 
-app = FastAPI()
+def dependency1():
+    print('Global dependency 1')
+
+def dependency2():
+    print('Global dependency 2')
+
+app = FastAPI(dependencies=[Depends(dependency1), Depends(dependency2)]) # Global dependencies
 
 app.add_middleware(HTTPErrorHandler)
 # @app.middleware('http')
