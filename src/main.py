@@ -10,11 +10,11 @@ import os
 
 app = FastAPI()
 
-# app.add_middleware(HTTPErrorHandler)
-@app.middleware('http')
-async def http_error_handler(request: Request, call_next)-> Response | JSONResponse:
-    print('Middleware is running!')
-    return await call_next(request)
+app.add_middleware(HTTPErrorHandler)
+# @app.middleware('http')
+# async def http_error_handler(request: Request, call_next)-> Response | JSONResponse:
+#     print('Middleware is running!')
+#     return await call_next(request)
 
 static_path = os.path.join(os.path.dirname(__file__), 'static')
 templates_path = os.path.join(os.path.dirname(__file__), 'templates')
