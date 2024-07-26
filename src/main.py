@@ -3,6 +3,7 @@ from fastapi.requests import Request
 from fastapi.responses import HTMLResponse, PlainTextResponse, FileResponse, Response, JSONResponse
 from src.routers.movie_router import movie_router
 from src.utils.http_error_handle import HTTPErrorHandler
+from typing import Annotated
 
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -34,7 +35,7 @@ def common_params(start_date: str, end_date: str):
     return {"start_date": start_date, "end_date": end_date}
 
 @app.get('/users', tags=["Users"])
-def get_users(commons: dict = Depends(common_params), country: str = Query(max_length=10)):
+def get_users(country: Annotated[str, Query(max_length=10)], commons: dict = Depends(common_params));
     return f"Users created between {commons['start_date']} and {commons['end_date']}"
 
 @app.get('/customers', tags=["Customers"])
