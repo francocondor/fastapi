@@ -33,13 +33,14 @@ def home(request: Request):
 
 def common_params(start_date: str, end_date: str):
     return {"start_date": start_date, "end_date": end_date}
+CommonDep = Annotated[dict, Depends(common_params)]
 
 @app.get('/users', tags=["Users"])
 def get_users(commons: Annotated[dict, Depends(common_params)]):
     return f"Users created between {commons['start_date']} and {commons['end_date']}"
 
 @app.get('/customers', tags=["Customers"])
-def get_customers(commons: dict = Depends(common_params)):
+def get_customers(commons: Annotated[dict, Depends(common_params)]):
     return f"Customers created between {commons['start_date']} and {commons['end_date']}"
 
 @app.get('/get_file', tags=["Files"])
