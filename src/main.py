@@ -41,11 +41,11 @@ class CommonDep:
         self.end_date = end_date
 
 @app.get('/users', tags=["Users"])
-def get_users(commons: CommonDep = Depends(CommonDep)):
+def get_users(commons: CommonDep = Depends()):
     return f"Users created between {commons.start_date} and {commons.end_date}"
 
 @app.get('/customers', tags=["Customers"])
-def get_customers(commons: CommonDep = Depends(CommonDep)):
+def get_customers(commons: CommonDep = Depends()):
     return f"Customers created between {commons.start_date} and {commons.end_date}"
 
 @app.get('/get_file', tags=["Files"])
