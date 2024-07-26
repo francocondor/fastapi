@@ -34,7 +34,7 @@ Luego, activamos el entorno virutal:
 Una vez activado el entorno, instalamos fastapi y uvicorn:
 
 ```powershell
-pip install fastapi uvicorn
+pip install fastapi uvicorn jinja2
 ```
 
 Para levantar el proyecto, ejecuta el siguiente comando:
