@@ -11,6 +11,7 @@ class Movie(BaseModel):
     rating: float
     category: str
 
+
 class MovieCreate(BaseModel):
     id: int
     title: str
@@ -31,6 +32,7 @@ class MovieCreate(BaseModel):
             }
         }
     }
+
 
 class MovieUpdate(BaseModel):
     title: Optional[str]

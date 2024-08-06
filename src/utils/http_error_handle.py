@@ -3,6 +3,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from fastapi.requests import Request
 from fastapi.responses import Response, JSONResponse
 
+
 class HTTPErrorHandler(BaseHTTPMiddleware):
     def __init__(self, app: FastAPI) -> None:
         super().__init__(app)
